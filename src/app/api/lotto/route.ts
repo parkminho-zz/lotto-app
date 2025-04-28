@@ -13,6 +13,6 @@ export async function GET() {
       }
     }
   
-    // 리턴할 때 numbers 배열만 보내줌
+    // 리턴할 때 json 으로 변환 후 넘겨줌
     return NextResponse.json({ numbers: lottoArray.sort((a, b) => a - b) });
   }

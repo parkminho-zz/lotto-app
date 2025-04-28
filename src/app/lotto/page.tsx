@@ -8,8 +8,9 @@ export default function LottoPage() {
 
   const fetchLottoNumbers = async () => {
     try {
-      const response = await axios.get("/api/lotto");
-      setNumbers(response.data.numbers); // axios는 자동으로 json 파싱
+      // @/api/lotto 로 get 요청
+      const response = await axios.get("/api/lotto"); 
+      setNumbers(response.data.numbers); 
     } catch (error) {
       console.error("로또 번호 가져오기 실패:", error);
     }
