@@ -1,36 +1,25 @@
 "use client"
 
-import styles from "./page.module.css";
-import { useState } from 'react';
+import { useState } from "react";
+import axios from "axios"; 
 
-export default function Home() {
-  
-  // 상태변화 numbers 선언
+export default function LottoPage() {
   const [numbers, setNumbers] = useState<number[]>([]);
 
-  // 로또 번호 생성함수
-  const getLottoNumbers = () => {
-    const lottoArray: number[] = [];
-    // 카운트배열 하나 만듦
-    const newCount = Array(46).fill(0); 
-    while (lottoArray.length < 6) {
-      const randomNum = Math.floor(Math.random() * 45) + 1;
-      if( newCount[randomNum] == 0) {
-         // 카운트배열에 값 더해서 해당 값 다시 안나오게하기.
-        newCount[randomNum] = 1;
-        lottoArray.push(randomNum);
-      }
+  const fetchLottoNumbers = async () => {
+    try {
+      const response = await axios.get("/api/lotto");
+      setNumbers(response.data.numbers); // axios는 자동으로 json 파싱
+    } catch (error) {
+      console.error("로또 번호 가져오기 실패:", error);
     }
-    // 번호 오름차순 정렬해서 저장
-    setNumbers(lottoArray.sort((a, b) => a - b)); 
   };
- 
  
   return (
     <main className="flex flex-col items-center mt-[100px]">
       <h1 className="text-2xl mb-5">🎰 로또 번호 생성기 🍀</h1>
       <button 
-        onClick={getLottoNumbers} 
+        onClick={fetchLottoNumbers} 
         className="px-[20px] py-[10px] text-[1rem] bg-white cursor-pointer mb-[30px] border-2 border-[#87d37c] text-[#87d37c] hover:bg-[#87d37c] hover:text-white active:bg-[#87d37c] active:border-white"
       >
         번호 생성하기
