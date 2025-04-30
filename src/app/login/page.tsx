@@ -4,13 +4,13 @@ import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect  } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const { data: session } = useSession();
 
   const handleLogin = async () => {
     const res = await signIn("credentials", {
-      email,
+      userId,
       password,
       redirect: false, // 실패했을 때 redirect 방지
     });
@@ -19,7 +19,8 @@ export default function LoginPage() {
       alert("존재하지 않는 계정이거나 틀린 비밀번호입니다."); // alert 창 띄우기
     } else {
       console.log("로그인성공여부 확인 : " + res); // 로그인 성공여부 확인
-      window.location.href = "/"; // 로그인 성공 시 메인 페이지로 이동
+      sessionStorage.setItem("sessionActive", "true");
+      window.location.href = "/"; // 로그인 성공 시 로또 페이지로 이동
     }
   };
 
@@ -38,9 +39,9 @@ export default function LoginPage() {
             <label className="block mb-2 text-sm font-medium text-gray-700">아이디</label>
             <input
               type="text"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUserId(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-              placeholder="Email"
+              placeholder="ID"
             />
           </div>
 

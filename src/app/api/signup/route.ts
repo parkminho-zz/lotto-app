@@ -4,33 +4,23 @@ import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
-function isValidEmail(email: string) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, password, name } = body;
+    const { userId, password, name } = body;
 
-    // 이메일, 비밀번호 체크
-    if (!email || !password ) {
+    // 아이디, 비밀번호 체크
+    if (!userId || !password || !name) {
       return NextResponse.json({ error: "필수 항목이 누락되었습니다." }, { status: 400 });
     }
 
-    // 이메일 형식 체크
-    if (!isValidEmail(email)) {
-        return NextResponse.json({ error: "유효하지 않은 이메일 형식입니다." }, { status: 400 });
-    }
-
-    // 이미 가입된 이메일 있는지 확인
+    // 이미 가입된 아이디 있는지 확인
     const existingUser = await prisma.user.findUnique({
-      where: { email },
+      where: { userId },
     });
 
     if (existingUser) {
-      return NextResponse.json({ error: "이미 가입된 이메일입니다." }, { status: 409 });
+      return NextResponse.json({ error: "이미 가입된 ID입니다." }, { status: 409 });
     }
 
     // 비밀번호 해시
@@ -39,9 +29,9 @@ export async function POST(req: Request) {
     // 사용자 생성
     const newUser = await prisma.user.create({
       data: {
-        email,
+        userId,
         password: hashedPassword,
-        ...(name && { name }),
+        name,
       },
     });
 

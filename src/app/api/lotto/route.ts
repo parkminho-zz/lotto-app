@@ -1,4 +1,32 @@
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "@/lib/authOptions";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+// POST 요청: 클릭 로그 저장
+export async function POST() {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user || !session.user.userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    await prisma.lottoClickLog.create({
+      data: {
+        userId: session.user.userId,
+      },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("LottoClickLog 저장 실패:", err);
+    return NextResponse.json({ error: "Failed to log click" }, { status: 500 });
+  }
+}
+
 
 // GET 요청 처리
 export async function GET() {

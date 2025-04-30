@@ -14,9 +14,55 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
   password  String
-  name      String?
+  name      String
+  role      Role     @default(USER) 
   createdAt DateTime @default(now())
+
+  // Relations
+  lottoClicks LottoClickLog[]
+  loginLogs   LoginLog[]
+  pageVisits  PageVisitLog[]
+}
+
+enum Role {
+  USER     
+  ADMIN   
+}
+
+model LottoClickLog {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  clickedAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [userId])
+}
+
+model LoginLog {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  loginAt   DateTime @default(now())
+  ip        String?
+
+  user      User     @relation(fields: [userId], references: [userId])
+}
+
+model LoginFailLog {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  failedAt   DateTime @default(now())
+  reason     String
+  ip         String?
+}
+
+model PageVisitLog {
+  id        Int      @id @default(autoincrement())
+  userId    String?
+  page      String
+  visitedAt DateTime @default(now())
+  ip        String?
+
+  user      User?    @relation(fields: [userId], references: [userId])
 }

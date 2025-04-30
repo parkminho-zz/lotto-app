@@ -12,13 +12,13 @@ const signUp = async (url: string, { arg }: { arg: any }) => {
 export default function SignUpPage() {
   const { trigger, isMutating } = useSWRMutation('/api/signup', signUp);
 
-  const [email, setEmail] = useState('');
+  const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
   const handleSubmit = async () => {
     try {
-      const result = await trigger({ email, password, name });
+      const result = await trigger({ userId, password, name });
       alert('회원가입 성공!');
       window.location.href = "/"; 
     } catch (err: any) {
@@ -32,22 +32,22 @@ export default function SignUpPage() {
         <h1 className="text-2xl font-bold mb-6 text-center">회원가입</h1>
         <input
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 mb-2"
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="userId"
+          placeholder="ID"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
         />
         <input
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 mb-2"
           type="password"
-          placeholder="비밀번호"
+          placeholder="PASSWORD"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 mb-4"
           type="text"
-          placeholder="이름"
+          placeholder="NAME"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
