@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { RecentLogs, Summary } from "@/types/logs";
 import useSWR from 'swr';
 import { SummaryCard } from "@/components/SummaryCard";
 import { RecentLogTable } from "@/components/RecentLogTable";

@@ -66,3 +66,33 @@ model PageVisitLog {
 
   user      User?    @relation(fields: [userId], references: [userId])
 }
+
+model LottoResult {
+  id              Int      @id @default(autoincrement())
+  year            Int
+  round           Int      @unique
+  drawDate        DateTime
+
+  firstWinners    Int
+  firstPrize      BigInt
+
+  secondWinners   Int
+  secondPrize     BigInt
+
+  thirdWinners    Int
+  thirdPrize      BigInt
+
+  fourthWinners   Int
+  fourthPrize     BigInt
+
+  fifthWinners    Int
+  fifthPrize      BigInt
+
+  number1         Int
+  number2         Int
+  number3         Int
+  number4         Int
+  number5         Int
+  number6         Int
+  bonusNumber     Int
+}

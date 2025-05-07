@@ -64,10 +64,10 @@ export default function LoginSuccessPage() {
       <table className="w-full border">
         <thead className="bg-gray-100">
           <tr>
-            <th className="p-2 border">ID</th>
-            <th className="p-2 border">이름</th>
-            <th className="p-2 border">로그인 시간</th>
-            <th className="p-2 border">실패 사유</th> 
+            <th className="p-2 border w-[200px]">ID</th>
+            <th className="p-2 border w-[200px]">이름</th>
+            <th className="p-2 border w-[600px]">로그인 시간</th>
+            <th className="p-2 border w-[300px]">실패 사유</th> 
           </tr>
         </thead>
           <tbody>
