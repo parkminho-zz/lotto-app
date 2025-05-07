@@ -18,10 +18,16 @@ export default function Home() {
               </button>
             </Link>
             <Link href="/lotto/check-lotto">
-              <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-2xl shadow-lg transition duration-300 ease-in-out">
+              <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl shadow-lg transition duration-300 ease-in-out">
                 ✅ 로또 당첨번호 확인하러 가기
               </button>
             </Link>
+            <Link href="/lotto/scroll-check-lotto">
+              <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-2xl shadow-lg transition duration-300 ease-in-out">
+                ✅ 로또 당첨번호 확인 (SCROLL)
+              </button>
+            </Link>
+
           </>
         ) : (
           <h1 className="text-2xl text-red-500">로그인이 필요합니다.</h1>

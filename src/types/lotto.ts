@@ -23,8 +23,3 @@ export type LottoResult = {
     number6: number;
     bonusNumber: number;
   };
-  
-  export type LottoCount ={
-    number: number;
-    count: number;
-  }

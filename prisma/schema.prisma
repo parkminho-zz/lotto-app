@@ -96,8 +96,3 @@ model LottoResult {
   number6         Int
   bonusNumber     Int
 }
-
-model LottoNumberCount {
-  number Int @id     // 1~45
-  count  Int @default(0)
-}

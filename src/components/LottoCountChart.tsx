@@ -18,9 +18,9 @@ interface LottoCountChartProps {
 }
 
 export default function LottoCountChart({ data }: LottoCountChartProps) {
-    const labels = data.map(item => item.number);
-    const dataCounts = data.map(item => item.count);
-  return (
+  console.log(data);
+  
+    return (
     <div className="mt-10 w-full max-w-4xl">
       <h2 className="text-xl font-semibold mb-4 text-center">번호별 생성 횟수</h2>
       <Bar
@@ -28,7 +28,7 @@ export default function LottoCountChart({ data }: LottoCountChartProps) {
           labels: data.map(item => item.number.toString()),
           datasets: [
             {
-              label: '생성 횟수',
+              label: '나온 횟수',
               data: data.map(item => item.count),
               backgroundColor: 'green',
               borderColor: 'green',

@@ -6,8 +6,8 @@ export default function LogsLayout({ children }: { children: ReactNode }) {
 
     return (
         <div className="flex min-h-screen">
-          <SideBar />
-          <div className="flex-1 p-6">
+          <SideBar/>
+          <div className="flex-1 pt-16 pl-60">
             {children}
           </div>
         </div>

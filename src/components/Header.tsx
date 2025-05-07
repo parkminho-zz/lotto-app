@@ -13,7 +13,7 @@ export default function Header() {
   const isAdmin = session?.user?.role === 'ADMIN';
 
   return (
-    <header className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-md">
+    <header className="fixed top-0 left-0 w-full flex items-center justify-between px-6 py-4 bg-white shadow-md">
       <Link href="/">
         <h1 className="text-2xl font-bold text-green-600 hover:opacity-80 cursor-pointer">
           LottoApp

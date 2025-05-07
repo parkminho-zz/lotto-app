@@ -14,7 +14,7 @@ export default function LogsLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex">
-      <aside className="w-64 p-6 border-r bg-gray-50 min-h-screen">
+      <aside className="pt-25 w-64 border-r p-6 bg-gray-50 min-h-screen">
         <h2 className="text-xl font-bold mb-6">📁 로그 관리</h2>
         <ul className="space-y-3">
           {menu.map(({ label, href }) => (
@@ -31,7 +31,7 @@ export default function LogsLayout({ children }: { children: ReactNode }) {
           ))}
         </ul>
       </aside>
-      <div className="flex-1 min-h-screen">{children}</div>
+      <div className="flex-1 pt-20 min-h-screen">{children}</div>
     </div>
   );
 }

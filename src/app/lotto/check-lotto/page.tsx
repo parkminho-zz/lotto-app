@@ -5,7 +5,7 @@ import { LottoResult } from "@/types/lotto";
 import LottoWinnersTable from '@/components/LottoWinnersTable';
 import { usePageVisitLogger } from "@/hooks/usePageVisitLogger";
 import RoundSelector from "@/components/RoundSelector";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 //GET
 const fetcher = (url: string) => fetch(url).then(res => res.json());
@@ -20,13 +20,8 @@ export default function CheckLottoPage() {
     "/api/lotto/check-lotto",
     fetcher
   );
-  const [selectedRound, setSelectedRound] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (data && !selectedRound) {
-      setSelectedRound(data.result.round);
-    }
-  }, [data, selectedRound]);
+  const [selectedRound, setSelectedRound] = useState<number | null>(null);
 
   // 선택된 회차가 있다면 그 회차 데이터를 따로 fetch
   const { data: selectedData, isLoading: isSelectedLoading  } = useSWR(
@@ -41,7 +36,7 @@ export default function CheckLottoPage() {
   if (isLoading || isSelectedLoading || !result) return <p>로딩 중...</p>;
 
   return (
-    <div className="flex flex-col items-center p-10 bg-gray-100">
+    <div className="flex flex-col items-center p-10 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6">✅ 로또 당첨번호 확인</h1>
 
       <div className="mb-4">
@@ -52,7 +47,7 @@ export default function CheckLottoPage() {
         />
       </div>
 
-      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-5xl text-center">
+      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-5xl text-center min-h-screen">
         <h2 className="text-2xl font-semibold mb-2">{result.round}회 당첨결과</h2>
         <p className="text-sm text-gray-600 mb-6">({result.drawDate.split('T')[0]} 추첨)</p>
 
