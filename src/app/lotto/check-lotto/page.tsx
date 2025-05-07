@@ -5,7 +5,7 @@ import { LottoResult } from "@/types/lotto";
 import LottoWinnersTable from '@/components/LottoWinnersTable';
 import { usePageVisitLogger } from "@/hooks/usePageVisitLogger";
 import RoundSelector from "@/components/RoundSelector";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //GET
 const fetcher = (url: string) => fetch(url).then(res => res.json());
@@ -20,11 +20,16 @@ export default function CheckLottoPage() {
     "/api/lotto/check-lotto",
     fetcher
   );
-
   const [selectedRound, setSelectedRound] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (data && !selectedRound) {
+      setSelectedRound(data.result.round);
+    }
+  }, [data, selectedRound]);
+
   // 선택된 회차가 있다면 그 회차 데이터를 따로 fetch
-  const { data: selectedData } = useSWR(
+  const { data: selectedData, isLoading: isSelectedLoading  } = useSWR(
     selectedRound ? `/api/lotto/check-lotto?round=${selectedRound}` : null,
     fetcher
   );
@@ -33,7 +38,7 @@ export default function CheckLottoPage() {
   const roundNumbers = data?.roundNumbers || [];
 
   if (error) return <p className="text-red-500">로또 정보를 불러오지 못했습니다.</p>;
-  if (isLoading || !result) return <p>로딩 중...</p>;
+  if (isLoading || isSelectedLoading || !result) return <p>로딩 중...</p>;
 
   return (
     <div className="flex flex-col items-center p-10 bg-gray-100">

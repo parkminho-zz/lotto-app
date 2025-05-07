@@ -40,6 +40,22 @@ export async function GET() {
         lottoArray.push(randomNum);
       }
     }
+
+    // 번호 카운트 증가
+    try {
+      await Promise.all(
+        lottoArray.map(num =>
+          prisma.lottoNumberCount.update({
+            where: { number: num },
+            data: { count: { increment: 1 } },
+          })
+        )
+      );
+    } catch (err) {
+      console.error("번호 카운트 업데이트 실패:", err);
+      return NextResponse.json({ error: "Failed to update count" }, { status: 500 });
+    }
+
   
     // 리턴할 때 json 으로 변환 후 넘겨줌
     return NextResponse.json({ numbers: lottoArray.sort((a, b) => a - b) });
