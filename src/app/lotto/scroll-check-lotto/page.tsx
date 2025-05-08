@@ -48,44 +48,48 @@ export default function CheckLottoPage() {
   
 
   return (
-    <div className="flex flex-col items-center p-10 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">✅ 로또 당첨번호 확인</h1>
+    <div className="h-screen flex flex-col items-center">
+      <div className="flex p-10 bg-gray-100 overflow-y-auto pt-25 flex-col items-center">
+        {/* <div className="flex flex-col items-center"> */}
+        <h1 className="text-3xl font-bold mb-6">✅ 로또 당첨번호 확인</h1>
 
-      {allResults.map((result) => (
-        <div
-          key={result.round}
-          className="bg-white rounded-xl shadow-md p-8 w-full max-w-5xl text-center mb-10"
-        >
-          <h2 className="text-2xl font-semibold mb-2">{result.round}회 당첨결과</h2>
-          <p className="text-sm text-gray-600 mb-6">
-            ({result.drawDate.split("T")[0]} 추첨)
-          </p>
+        {allResults.map((result) => (
+          <div
+            key={result.round}
+            className="bg-white rounded-xl shadow-md p-8 w-full max-w-5xl text-center mb-10"
+            >
+            <h2 className="text-2xl font-semibold mb-2">{result.round}회 당첨결과</h2>
+            <p className="text-sm text-gray-600 mb-6">
+              ({result.drawDate.split("T")[0]} 추첨)
+            </p>
 
-          <div className="flex items-center justify-center gap-3 mb-4">
-            {[result.number1, result.number2, result.number3, result.number4, result.number5, result.number6].map(
-              (num, idx) => (
-                <div
+            <div className="flex items-center justify-center gap-3 mb-4">
+              {[result.number1, result.number2, result.number3, result.number4, result.number5, result.number6].map(
+                (num, idx) => (
+                  <div
                   key={idx}
                   className="w-[50px] h-[50px] rounded-full bg-[#4CAF50] text-white flex items-center justify-center font-bold text-lg"
-                >
-                  {num}
-                </div>
-              )
-            )}
-            <span className="text-xl font-bold">+</span>
-            <div className="w-[50px] h-[50px] rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg">
-              {result.bonusNumber}
+                  >
+                    {num}
+                  </div>
+                )
+              )}
+              <span className="text-xl font-bold">+</span>
+              <div className="w-[50px] h-[50px] rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-lg">
+                {result.bonusNumber}
+              </div>
             </div>
+
+            <LottoWinnersTable result={result} />
           </div>
+        ))}
 
-          <LottoWinnersTable result={result} />
-        </div>
-      ))}
+        {isLoading || isValidating ? <p>로딩 중...</p> : null}
 
-      {isLoading || isValidating ? <p>로딩 중...</p> : null}
-
-      {/* 스크롤 감지 요소 */}
-      <div ref={bottomRef} className="h-10" />
+        {/* 스크롤 감지 요소 */}
+        <div ref={bottomRef} className="h-10" />
+      {/* </div> */}
+    </div>
     </div>
   );
 }

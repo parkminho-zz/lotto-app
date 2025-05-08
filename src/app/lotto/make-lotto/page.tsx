@@ -78,7 +78,7 @@ export default function LottoPage() {
   }
 
   return (
-        <main className="flex flex-col items-center p-10 bg-gray-100 min-h-screen">
+        <main className="flex flex-col items-center p-10 bg-gray-100 min-h-screen pt-25">
           <h1 className="text-3xl font-bold mb-6">🎰 로또 번호 생성기 🍀</h1>
           <button 
             onClick={handleClick} 

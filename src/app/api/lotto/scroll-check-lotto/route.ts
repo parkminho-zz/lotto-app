@@ -32,12 +32,11 @@ export async function GET(req: NextRequest) {
     // BigInt -> string 변환 (필요한 필드만)
     const serializedResult = {
       ...result,
-      firstPrize: result.firstPrize?.toString(), // 예: BigInt 필드
+      firstPrize: result.firstPrize?.toString(), //  BigInt 필드
       secondPrize: result.secondPrize?.toString(),
       thirdPrize: result.thirdPrize?.toString(),
       fourthPrize: result.fourthPrize?.toString(),
       fifthPrize: result.fifthPrize?.toString(),
-      // 필요한 다른 BigInt 필드도 여기에 추가
     };
 
     return NextResponse.json({ result: serializedResult, totalCount }, { status: 200 });

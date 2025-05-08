@@ -19,12 +19,10 @@ export async function GET(req: NextRequest, res: NextResponse ) {
     const allResults = await prisma.lottoResult.findMany();
     const countMap: Record<number, number> = {};
   
-    // Initialize countMap with 0 for all numbers
     for (let num of numbers) {
       countMap[num] = 0;
     }
   
-    // Count the occurrences of numbers in the results
     for (const result of allResults) {
       const values = [
         result.number1,
@@ -40,7 +38,6 @@ export async function GET(req: NextRequest, res: NextResponse ) {
       }
     }
   
-    // Log the countMap to check the data
     console.log("countMap =", countMap);
   
     const resultArray = Object.entries(countMap).map(([number, count]) => ({
